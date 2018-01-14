@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/blockchain_parser.dir/main.cpp.o  -o blockchain_parser /usr/lib/libstdc++fs.a 
