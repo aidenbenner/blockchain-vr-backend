@@ -94,14 +94,14 @@ def downloadNBlock(n):
         blk = parseBlock(curr_hash)
         cfname = './clean/' + curr_hash
         f = open(cfname, 'w+')
-        cleanjson = json.dumps(blk.__dict__)
+        cleanjson = json.dumps(blk.__dict__, indent=4, separators=(',', ': '))
         f.write(cleanjson)
         f.close()
 
         curr_hash = blk.prev
         time.sleep(0)
 
-downloadNBlock(500)
+downloadNBlock(10)
 
 
 
