@@ -1,6 +1,7 @@
 import urllib.request
 import json
 import datetime
+import os.path
 
 block_url = 'https://blockchain.info/rawblock/'
 start_hash = '0000000000000000002fff5695a8ba65fbced03b312c0bf6d5ac1da373fbcc0c'
@@ -16,10 +17,6 @@ def getJsonResponse(url):
 
 def converUnixTime(time):
     return datetime.datetime.fromtimestamp(int("1284101485")).strftime('%Y-%m-%d %H:%M:%S')
-
-
-class Block:
-    __init__(self, time, transactions):
 
 
 def parseTransaction(tx):
@@ -60,7 +57,14 @@ def parseBlock(hash):
 
 curr_hash = start_hash
 for x in range(10):
+    # check if we've already downloaded this hash
+    if os.path.exists('./blocks/' + curr_hash):
+        continue;
+    raw = getResponse(url):
     blk = parseBlock(curr_hash)
     next_hash = blk['prev_block']
     time.sleep(rate_limit)
+
+
+
 
