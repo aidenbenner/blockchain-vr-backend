@@ -4,10 +4,12 @@ import datetime
 import time 
 import os.path
 
+
 block_url = 'https://blockchain.info/rawblock/'
 start_hash = '0000000000000000002fff5695a8ba65fbced03b312c0bf6d5ac1da373fbcc0c'
 rate_limit = 2
 block_folder = './blocks/'
+
 
 def getResponse(url):
     req = urllib.request.Request(url)
@@ -24,9 +26,10 @@ def converUnixTime(time):
     return datetime.datetime.fromtimestamp(int(time)).strftime('%Y-%m-%d %H:%M:%S')
 
 class Block:
-    def __init__(self, hash, prev, time, tx):
+    def __init__(self, hash, prev, height, time, tx):
         self.hash = hash
         self.prev = prev
+        self.height = height
         self.time = converUnixTime(time)
         self.tx= tx
 
@@ -82,7 +85,7 @@ def parseBlock(hash):
     for t in transactions:
         tout.append(parseTransaction(t))
 
-    return Block(hash, blk['prev_block'], blk['time'], tout)
+    return Block(hash, blk['prev_block'], blk['height'], blk['time'], tout)
 
 def fnameFromHash(hash):
     return block_folder + hash
@@ -101,7 +104,7 @@ def downloadNBlock(n):
         curr_hash = blk.prev
         time.sleep(0)
 
-downloadNBlock(10)
+downloadNBlock(500)
 
 
 

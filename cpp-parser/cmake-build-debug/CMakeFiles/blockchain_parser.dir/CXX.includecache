@@ -6,15 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/home/prince/CLionProjects/blockchain-parser/block.h
+/home/prince/Projects/blockchain-vr/cpp-parser/block.h
 string
 -
 vector
 -
 transaction.h
-/home/prince/CLionProjects/blockchain-parser/transaction.h
+/home/prince/Projects/blockchain-vr/cpp-parser/transaction.h
 
-/home/prince/CLionProjects/blockchain-parser/json.hpp
+/home/prince/Projects/blockchain-vr/cpp-parser/json.hpp
 algorithm
 -
 array
@@ -70,9 +70,9 @@ valarray
 vector
 -
 
-/home/prince/CLionProjects/blockchain-parser/main.cpp
+/home/prince/Projects/blockchain-vr/cpp-parser/main.cpp
 json.hpp
-/home/prince/CLionProjects/blockchain-parser/json.hpp
+/home/prince/Projects/blockchain-vr/cpp-parser/json.hpp
 iostream
 -
 fstream
@@ -80,11 +80,11 @@ fstream
 experimental/filesystem
 -
 transaction.h
-/home/prince/CLionProjects/blockchain-parser/transaction.h
+/home/prince/Projects/blockchain-vr/cpp-parser/transaction.h
 block.h
-/home/prince/CLionProjects/blockchain-parser/block.h
+/home/prince/Projects/blockchain-vr/cpp-parser/block.h
 
-/home/prince/CLionProjects/blockchain-parser/transaction.h
+/home/prince/Projects/blockchain-vr/cpp-parser/transaction.h
 utility
 -
 vector

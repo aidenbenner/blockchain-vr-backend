@@ -14,6 +14,7 @@ public:
     JSON_reader(std::string folder_path) {
         auto it = fs::recursive_directory_iterator(fs::path(folder_path.c_str()));
         for (auto curr = fs::begin(it); curr != fs::end(it); curr++) {
+            std::cout << c << endl;
             std::ifstream i(fs::canonical(*curr).string());
             json j;
             i >> j;
@@ -29,7 +30,7 @@ public:
         return search->second;
     }
 
-    std::unordered_map<string, Block>& map() {
+    std::map<string, Block>& map() {
         return blocks;
     }
 
@@ -39,11 +40,12 @@ private:
         auto t = j.at("time").get<std::string>();
         auto p = j.at("prev").get<std::string>();
         auto h = j.at("hash").get<std::string>();
+        auto height = j.at("height").get<int>();
         std::vector<Transaction> txs;
         for (auto& tx : j["tx"]) {
             txs.push_back(json_to_transaction(tx));
         }
-        blocks.insert({h, Block(h, p, txs)});
+        blocks.insert({h, Block(height, h, t, p, txs)});
     }
 
     Transaction json_to_transaction(const json& j) {
@@ -66,7 +68,7 @@ private:
     }
 
 private:
-    std::unordered_map<std::string, Block> blocks;
+    std::map<std::string, Block> blocks;
 };
 
 int main() {
