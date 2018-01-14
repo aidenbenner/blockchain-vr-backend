@@ -10,10 +10,12 @@ class Block {
 
 public:
     string time;
+    int height;
+    string hash;
     string prev_hash;
     vector<Transaction> txs;
 
-    Block(string t, string phash, vector<Transaction> transactions) : time(t), prev_hash(phash), txs(transactions)
+    Block(int height, string hash, string t, string phash, vector<Transaction> transactions) : height(height), hash(hash), time(t), prev_hash(phash), txs(transactions)
     {
     }
 

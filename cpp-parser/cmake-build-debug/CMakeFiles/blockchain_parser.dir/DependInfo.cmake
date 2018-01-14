@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/prince/CLionProjects/blockchain-parser/main.cpp" "/home/prince/CLionProjects/blockchain-parser/cmake-build-debug/CMakeFiles/blockchain_parser.dir/main.cpp.o"
+  "/home/prince/Projects/blockchain-vr/cpp-parser/main.cpp" "/home/prince/Projects/blockchain-vr/cpp-parser/cmake-build-debug/CMakeFiles/blockchain_parser.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
