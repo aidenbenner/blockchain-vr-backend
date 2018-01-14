@@ -21,13 +21,20 @@ def downloadRawBlock(hash):
     return getResponse(block_url + hash)
 
 def converUnixTime(time):
-    return datetime.datetime.fromtimestamp(int("1284101485")).strftime('%Y-%m-%d %H:%M:%S')
+    return datetime.datetime.fromtimestamp(int(time)).strftime('%Y-%m-%d %H:%M:%S')
 
 class Block:
-    def __init__(self, prev, time, tx):
+    def __init__(self, hash, prev, time, tx):
+        self.hash = hash
         self.prev = prev
         self.time = converUnixTime(time)
         self.tx= tx
+
+class Transaction:
+    def __init__(self, startAddrs, endAddrs, time):
+        self.startAddrs = startAddrs
+        self.endAddrs = endAddrs
+        self.time = converUnixTime(time)
 
 def parseTransaction(tx):
     inputs = tx['inputs']
@@ -51,7 +58,7 @@ def parseTransaction(tx):
         val = o['value'] / (10 ** 8)
         endAddrs.append([addr,val])
 
-    return [startAddrs, endAddrs]
+    return [startAddrs, endAddrs, converUnixTime(time)]
 
 def getRawBlock(hash):
     return getJsonResponse(block_url + hash)
@@ -61,13 +68,11 @@ def parseBlock(hash):
     fname = fnameFromHash(hash)
     # write if not found
     if not os.path.exists(fname):
-        print('downloading ' + hash)
         f = open(fname, "w+")
         raw = downloadRawBlock(hash)
         f.write(raw)
         f.close()
     else:
-        print('found ' + hash + ' in ' + fname)
         f = open(fname, "r")
         raw = f.read()
         f.close()
@@ -77,18 +82,22 @@ def parseBlock(hash):
     for t in transactions:
         tout.append(parseTransaction(t))
 
-    return Block(blk['prev_block'], blk['time'], tout)
+    return Block(hash, blk['prev_block'], blk['time'], tout)
 
 def fnameFromHash(hash):
     return block_folder + hash
-
 
 def downloadNBlock(n):
     curr_hash = start_hash
     for x in range(n):
         print(curr_hash)
         blk = parseBlock(curr_hash)
-        print(blk)
+        cfname = './clean/' + curr_hash
+        f = open(cfname, 'w+')
+        cleanjson = json.dumps(blk.__dict__)
+        f.write(cleanjson)
+        f.close()
+
         curr_hash = blk.prev
         time.sleep(0)
 
