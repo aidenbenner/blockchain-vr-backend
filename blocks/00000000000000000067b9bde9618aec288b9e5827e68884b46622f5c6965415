@@ -1,0 +1,60 @@
+
+
+{
+    "hash":"00000000000000000067b9bde9618aec288b9e5827e68884b46622f5c6965415",
+    "ver":536870912,
+    "prev_block":"0000000000000000000b358ddf2ba0acafc29ec7c3ac97dfc7333e54dbd581ad",
+    "mrkl_root":"2e82c37865056c2514c02f75aaf34943409fea5c51cf0d63e8b005fb94d4ad39",
+    "time":1515865263,
+    "bits":394155916,
+    "fee":0,
+    "nonce":2430548891,
+    "n_tx":1,
+    "size":286,
+    "block_index":1666818,
+    "main_chain":true,
+    "height":504069,
+    "received_time":1515865263,
+    "relayed_by":"0.0.0.0",
+    
+    "tx":[
+
+{
+   "lock_time":0,
+   "ver":1,
+   "size":205,
+   "inputs":[
+      {
+         "sequence":4294967295,
+         "witness":"01200000000000000000000000000000000000000000000000000000000000000000",
+         "script":"0305b107184d696e656420627920416e74506f6f6c313808205a5a44af04340000aa160000"
+      }
+   ],
+   "weight":712,
+   "time":1515865263,
+   "tx_index":323584869,
+   "vin_sz":1,
+   "hash":"2e82c37865056c2514c02f75aaf34943409fea5c51cf0d63e8b005fb94d4ad39",
+   "vout_sz":2,
+   "relayed_by":"0.0.0.0",
+   "out":[
+      {
+         "spent":false,
+         "tx_index":323584869,
+         "type":0,
+         "addr":"1Nh7uHdvY6fNwtQtM1G5EZAFPLC33B59rB",
+         "value":1250000000,
+         "n":0,
+         "script":"76a914edf10a7fac6b32e24daa5305c723f3de58db1bc888ac"
+      },
+      {
+         "spent":false,
+         "tx_index":323584869,
+         "type":0,
+         "value":0,
+         "n":1,
+         "script":"6a24aa21a9ede2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf9"
+      }
+   ]
+}]
+ }
