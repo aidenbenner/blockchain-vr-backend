@@ -1,11 +1,13 @@
 import urllib.request
 import json
 import datetime
+import time 
 import os.path
 
 block_url = 'https://blockchain.info/rawblock/'
 start_hash = '0000000000000000002fff5695a8ba65fbced03b312c0bf6d5ac1da373fbcc0c'
 rate_limit = 2
+block_folder = './blocks/'
 
 def getResponse(url):
     req = urllib.request.Request(url)
@@ -15,9 +17,17 @@ def getResponse(url):
 def getJsonResponse(url):
     return json.loads(getResponse(url))
 
+def downloadRawBlock(hash):
+    return getResponse(block_url + hash)
+
 def converUnixTime(time):
     return datetime.datetime.fromtimestamp(int("1284101485")).strftime('%Y-%m-%d %H:%M:%S')
 
+class Block:
+    def __init__(self, prev, time, tx):
+        self.prev = prev
+        self.time = converUnixTime(time)
+        self.tx= tx
 
 def parseTransaction(tx):
     inputs = tx['inputs']
@@ -44,27 +54,45 @@ def parseTransaction(tx):
     return [startAddrs, endAddrs]
 
 def getRawBlock(hash):
-    return getJsonResponse(block_url + start_hash)
+    return getJsonResponse(block_url + hash)
 
 def parseBlock(hash):
-    blk  = getJsonResponse(block_url + start_hash)
+    # check if we've already downloaded this hash
+    fname = fnameFromHash(hash)
+    # write if not found
+    if not os.path.exists(fname):
+        print('downloading ' + hash)
+        f = open(fname, "w+")
+        raw = downloadRawBlock(hash)
+        f.write(raw)
+        f.close()
+    else:
+        print('found ' + hash + ' in ' + fname)
+        f = open(fname, "r")
+        raw = f.read()
+        f.close()
+    blk  = json.loads(raw)
     transactions = blk['tx']
     tout = []
     for t in transactions:
         tout.append(parseTransaction(t))
-    return tout
+
+    return Block(blk['prev_block'], blk['time'], tout)
+
+def fnameFromHash(hash):
+    return block_folder + hash
 
 
-curr_hash = start_hash
-for x in range(10):
-    # check if we've already downloaded this hash
-    if os.path.exists('./blocks/' + curr_hash):
-        continue;
-    raw = getResponse(url):
-    blk = parseBlock(curr_hash)
-    next_hash = blk['prev_block']
-    time.sleep(rate_limit)
+def downloadNBlock(n):
+    curr_hash = start_hash
+    for x in range(n):
+        print(curr_hash)
+        blk = parseBlock(curr_hash)
+        print(blk)
+        curr_hash = blk.prev
+        time.sleep(0)
 
+downloadNBlock(500)
 
 
 
